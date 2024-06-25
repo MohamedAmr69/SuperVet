@@ -1,0 +1,145 @@
+<body>
+  <%- include('header') %>
+  <div class="account-heading">
+    <h1 class="heading-primary text-center">My Account</h1>
+  </div>
+
+  <div class="container container-fluid">
+    <div class="personal-info row">
+      <div class="personal-heading">
+        <h2 class="heading-secondary mb-5">Personal Information</h2>
+      </div>
+      <div class="col">
+        <h4 class="heading-quaternary">First Name:</h4>
+        <p class="person-details"><%= user.firstName %></p>
+      </div>
+      <div class="col">
+        <h4 class="heading-quaternary">Last Name:</h4>
+        <p><%= user.lastName %></p>
+      </div>
+      <div class="col">
+        <h4 class="heading-quaternary">E-mail:</h4>
+        <p><%= user.email %></p>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4 class="heading-quaternary">Username:</h4>
+          <p><%= user.username %></p>
+        </div>
+        <div class="col">
+          <h4 class="heading-quaternary">Address:</h4>
+          <p><%= user.address %></p>
+        </div>
+        <div class="col">
+          <h4 class="heading-quaternary">Phone Number:</h4>
+          <p><%= user.phoneNumber %></p>
+        </div>
+      </div>
+    </div>
+    <div class="personal-info row">
+      <div class="personal-heading">
+        <h2 class="heading-secondary mb-5">Pets Information</h2>
+      </div>
+      <div class="col">
+        <h4 class="heading-quaternary">Pet Name:</h4>
+        <p><%= user.petName %></p>
+      </div>
+      <div class="col">
+        <h4 class="heading-quaternary">Pet Type:</h4>
+        <p><%= user.petType %></p>
+      </div>
+      <div class="col">
+        <h4 class="heading-quaternary">Pet Age:</h4>
+        <p><%= user.petAge %> years</p>
+      </div>
+    </div>
+    <div class="personal-info row">
+      <div class="personal-heading">
+        <h2 class="heading-secondary mb-5">Appointments Information</h2>
+      </div>
+      <% if (appointments.length > 0) { %> <%
+      appointments.forEach(function(appointment) { %>
+      <div class="col-md-4 col-appointment">
+        <div class="appointment-card mb-5">
+          <div class="appointment-header text-white py-3 px-4">
+            <h2 class="appointment-title">Appointment Details</h2>
+          </div>
+          <div class="appointment-body p-4">
+            <p class="appointment-info">
+              <strong>Date:</strong>
+              <span class="date"
+                ><%= new Date(appointment.date).toLocaleDateString() %></span
+              ><br />
+              <strong>Time:</strong>
+              <span class="time"
+                ><%= appointment.time %> <%= parseInt(appointment.time) < 12 ?
+                'AM' : 'PM' %></span
+              ><br />
+              <strong>Veterinarian:</strong>
+              <span class="veterinarian"><%= appointment.veterinarian %></span>
+            </p>
+            <hr class="divider" />
+            <p class="appointment-info">
+              <strong>Pet Details:</strong><br />
+              <strong>Name:</strong>
+              <span class="pet-name"><%= appointment.petName %></span><br />
+              <strong>Type:</strong>
+              <span class="pet-type"><%= appointment.petType %></span><br />
+              <strong>Age:</strong>
+              <span class="pet-age"><%= appointment.petAge %> years</span>
+            </p>
+            <hr class="divider" />
+            <p class="appointment-info">
+              <strong>Reason:</strong>
+              <span class="reason"><%= appointment.reason %></span>
+            </p>
+            <hr class="divider" />
+            <p class="appointment-info">
+              <strong>Amount:</strong>
+              <span class="Amount"><%= appointment.amount %></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <% }); %> <% } else { %>
+      <p class="text-center">No appointments found.</p>
+      <% } %>
+    </div>
+
+    <div class="personal-info row">
+      <div class="personal-heading">
+        <h2 class="heading-secondary mb-5">Orders Information</h2>
+      </div>
+      <% if (transactions.length > 0) { %> <%
+      transactions.forEach(function(transaction) { %>
+      <div class="col-md-3 col-sm-6 col-12 mb-4">
+        <!-- Adjust the column classes here -->
+        <div class="appointment-card mb-5">
+          <div class="appointment-header text-white py-3 px-4">
+            <h2 class="appointment-title">Order Details</h2>
+          </div>
+          <div class="appointment-body p-4">
+            <p class="appointment-info">
+              <strong>Date:</strong>
+              <span
+                ><%= new Date(transaction.createdAt).toLocaleDateString()
+                %></span
+              ><br />
+              <strong>Product:</strong>
+              <span><%= transaction.productName %></span><br />
+              <strong>Quantity:</strong>
+              <span><%= transaction.quantity %></span><br />
+              <strong>Total Price:</strong>
+              <span><%= transaction.totalPrice %></span><br />
+            </p>
+          </div>
+        </div>
+      </div>
+      <% }); %> <% } else { %>
+      <p class="text-center">No orders found.</p>
+      <% } %>
+    </div>
+  </div>
+
+  <%- include('footer') %>
+</body>

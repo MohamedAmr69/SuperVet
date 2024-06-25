@@ -1,0 +1,46 @@
+<%- include("adminHeader") %>
+
+<center>
+    <div class="container border shadow m-5">
+        <div class="row justify-content-end">
+            <div class="col-3 my-4">
+                <a href="/addAccount" class="btn btn-outline-dark">Add Account</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row my-4">
+            <div class="col">Username</div>
+            <div class="col">First Name</div>
+            <div class="col">Last Name</div>
+            <div class="col">Address</div>
+            <div class="col">Phone Number</div>
+            <div class="col">Role</div>
+            <div class="col">Edit</div>
+            <div class="col">Delete</div>
+
+        </div>
+        
+        <% doctors.forEach(doctor => { %>
+            <div class="row my-4">
+                <div class="col"><%= doctor.username %></div>
+                <div class="col"><%= doctor.firstName %></div>
+                <div class="col"><%= doctor.lastName %></div>
+                <div class="col"><%= doctor.address %></div>
+                <div class="col"><%= doctor.phoneNumber %></div>
+                <div class="col"><%= doctor.role %></div>
+                <div class="col"><form action="/editAccoundPage" method="POST">
+                    <input type="hidden" name="id" value="<%=doctor._id%>">
+                    <button type="submit" style="background-color: transparent; border: none;"><i class="bi bi-pen-fill"></i></button>
+                </form></div>
+                <div class="col"><div class="col"><form action="/deleteAccount" method="POST">
+                    <input type="hidden" name="id" value="<%=doctor._id%>">
+                    <button type="submit" style="background-color: transparent; border: none;"><i class="bi bi-archive-fill"></i></button>
+                </form></div></div>
+
+            </div>
+        <% }); %>
+        
+    </div>
+</center>
+
+<%- include("adminFooter") %>

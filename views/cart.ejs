@@ -1,0 +1,152 @@
+<%- include('header') %>
+    <div class="container my-5">
+        <div class="row justify-content-between my-5">
+            <div class="col-7 align-content-center">
+                <h1>Your Shopping Cart</h1>
+            </div>
+            <div class="col-3 text-center align-content-center">
+                <h1>
+                    Total Price: <%=totalPrice %>
+
+                </h1>
+            </div>
+            <div class="col-2 text-end">
+                <form action="/buyFromCart" method="POST">
+                    <input type="hidden" name="cart" value='<%= JSON.stringify(cart) %>'>
+                    <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                    <!-- <button type="submit" class="text-center btn btn-dark" <%=totalPrice===0 ? 'disabled' : ''
+                        %>>Buy</button> -->
+                        <div class="row justify-content-center mt-3">
+                            <div class="col-2">
+                              <button
+                                type="button"
+                                class="btn py-4"
+                                style="background-color: #cf711f; color: white"
+                                data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop"
+                                <%=totalPrice===0 ? 'disabled' : ''%>
+                              >
+                                Buy
+                              </button>
+                              <div
+                                class="modal fade"
+                                id="staticBackdrop"
+                                data-bs-backdrop="static"
+                                data-bs-keyboard="false"
+                                tabindex="-1"
+                                aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true"
+                              >
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                        pay invoice
+                                      </h1>
+                                      <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                      ></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="container">
+                                        <div class="row display-5 justify-content-center">
+                                          Pay Invoice
+                                        </div>
+                                        <hr />
+                                        <div class="row justify-content-center">
+                                          <center><h4>We Accept</h4></center>
+                                        </div>
+                                        <div class="row justify-content-center my-2">
+                                          <img
+                                            src="/images/creditcard.jpg"
+                                            style="width: 200px"
+                                          />
+                                        </div>
+                                        <div class="row my-3">
+                                          <h4>payment amount: <%=totalPrice %> LE</h4>
+                                        </div>
+                                        <div class="row my-3">
+                                          <div class="col">
+                                            <label for="" class="form-label">Name on card</label>
+                                            <input type="text" class="form-control" />
+                                          </div>
+                                          <div class="col">
+                                            <label for="" class="form-label">Card Number</label>
+                                            <input type="text" class="form-control" />
+                                          </div>
+                                        </div>
+                                        <div class="row my-3">
+                                          <div class="col">
+                                            <label for="" class="form-label">Expiry date</label>
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              placeholder="MM/YY"
+                                            />
+                                          </div>
+                                          <div class="col">
+                                            <label for="" class="form-label">Security Code</label>
+                                            <input type="text" class="form-control" />
+                                          </div>
+                                        </div>
+                                        <div class="row my-3">
+                                          <label for="" class="form-label">ZIP/Postal code</label>
+                                          <input type="text" class="form-control" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="text-center btn btn-dark" <%=totalPrice===0 ? 'disabled' : ''
+                                        %>>Buy</button>
+                                       
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="row border p-5 shadow">
+            <% if (cart.length> 0) { %>
+                <% cart.forEach(item=> { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="card position-relative">
+                            <form action="/removeFromCart?id=<%= item.productId %>" method="POST">
+                                <button class="text-danger position-absolute top-0 end-0" type="submit"
+                                    style="z-index: 1; font-size: 25px; margin: 8px; background-color: transparent; border: none;"><i
+                                        class="bi bi-x"></i></button>
+                            </form>
+                            <img src="/images/inventory_images/<%= item.image %>" class="card-img-top"
+                                alt="Product Image" style="width: 100%; height: 400px;">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <%= item.productName %>
+                                </h3>
+                                <p class="card-text">Price: $<%= item.productPrice %>
+                                </p>
+                                <p class="card-text">Quantity: <%= item.qty %>
+                                </p>
+                                <p class="card-text">Total Price: <%= parseInt(item.qty) * parseInt(item.productPrice)
+                                        %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+                        <% } else { %>
+                            <div class="col card-text">
+                                <center>
+                                    <h1>Your cart is empty.</h1>
+                                </center>
+                            </div>
+                            <% } %>
+        </div>
+    </div>
+
+    <%- include('footer') %>

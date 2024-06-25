@@ -1,0 +1,214 @@
+<%- include('header') %>
+<div class="container mt-0 p-5">
+  <center>
+    <div class="heading-secondary mb-5">Make an appointment</div>
+  </center>
+  <div
+    class="pt-4 card d-flex center-container"
+    style="background-color: #fdf2e9; border-radius: 9px"
+  >
+    <% if (messages) { %> <% for(let message of messages) { %>
+    <div
+      class="alert alert-danger w-50 text-center"
+      style="margin-bottom: -30px"
+      role="alert"
+    >
+      <h5>
+        <p class="fs-3"><%= message %></p>
+      </h5>
+    </div>
+    <% } %> <% } %>
+    <form action="/appointment" method="POST" class="cta-form">
+      <div class="cta-text-box">
+        <div class="subheading cta-text mb-5">
+          Please fill out the form to make an appointment.
+        </div>
+        <div class="form-grid">
+          <div class="user-info">
+            <label for="pet" class="form-label">Select Your Pet</label>
+            <select name="petId" id="pet">
+              <option value="">Choose...</option>
+              <% pets.forEach(pet=> { %>
+              <option value="<%= pet._id %>">
+                <%= pet.petName %> (<%= pet.petType %>)
+              </option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="pet-info">
+            <label for="reason" class="form-label">Reason for Visit</label>
+            <select name="reason" id="reason">
+              <option value="">Choose...</option>
+              <option value="DentalCare">Dental Care</option>
+              <option value="Vaccination">Vaccination</option>
+              <option value="DiagnosticServices">Diagnostic Services</option>
+              <option value="Surgery">Surgery</option>
+              <option value="HospiceCare">Hospice Care (end-of-life)</option>
+
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="user-info">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" name="date" id="date" />
+          </div>
+          <div class="pet-info">
+            <label for="veterinarian" class="form-label"
+              >Preferred Veterinarian</label
+            >
+            <select name="veterinarian" id="veterinarian">
+              <option value="">Choose...</option>
+              <option value="Dr. Mohamed Rafat">Dr. Mohamed Rafat</option>
+              <option value="Dr. Moataz Mohamed">Dr. Moataz Mohamed</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="user-info">
+            <label for="time" class="form-label">Time</label>
+            <select name="time" id="time">
+              <option value="">Choose...</option>
+              <option value="09:00">9:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="12:00">12:00 PM</option>
+              <option value="13:00">1:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="15:00">3:00 PM</option>
+              <option value="16:00">4:00 PM</option>
+              <option value="17:00">5:00 PM</option>
+              <option value="18:00">6:00 PM</option>
+              <option value="19:00">7:00 PM</option>
+              <option value="20:00">8:00 PM</option>
+              <option value="21:00">9:00 PM</option>
+              <option value="22:00">10:00 PM</option>
+              <option value="23:00">11:00 PM</option>
+            </select>
+          </div>
+          <!-- Add other input fields for appointment details -->
+        </div>
+        <div class="row justify-content-center mt-3">
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn p-2"
+              style="background-color: #cf711f; color: white"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            >
+              submit
+            </button>
+            <div
+              class="modal fade"
+              id="staticBackdrop"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                      pay invoice
+                    </h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container">
+                      <div class="row display-5 justify-content-center">
+                        Pay Invoice
+                      </div>
+                      <hr />
+                      <div class="row justify-content-center">
+                        <center><h4>We Accept</h4></center>
+                      </div>
+                      <div class="row justify-content-center my-2">
+                        <img
+                          src="/images/creditcard.jpg"
+                          style="width: 200px"
+                        />
+                      </div>
+                      <div class="row my-3">
+                        <h4>payment amount: <span id="amount"></span> LE</h4>
+                      </div>
+                      <div class="row my-3">
+                        <div class="col">
+                          <label for="" class="form-label">Name on card</label>
+                          <input type="text" class="form-control" />
+                        </div>
+                        <div class="col">
+                          <label for="" class="form-label">Card Number</label>
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="row my-3">
+                        <div class="col">
+                          <label for="" class="form-label">Expiry date</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="MM/YY"
+                          />
+                        </div>
+                        <div class="col">
+                          <label for="" class="form-label">Security Code</label>
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="row my-3">
+                        <label for="" class="form-label">ZIP/Postal code</label>
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="submit"
+                      id="appointment_button"
+                      class="btn py-2"
+                    >
+                      Pay
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const reason = document.getElementById("reason");
+  const amount = document.getElementById("amount");
+
+  reason.addEventListener("change", () => {
+    if (reason.value === "DentalCare") {
+      amount.innerHTML = "1000";
+    }
+    if (reason.value === "Vaccination") {
+      amount.innerHTML = "1500";
+    }
+    if (reason.value === "DiagnosticServices") {
+      amount.innerHTML = "500";
+    }
+    if (reason.value === "Surgery") {
+      amount.innerHTML = "2000";
+    }
+    if (reason.value === "HospiceCare") {
+      amount.innerHTML = "2000";
+    }
+  });
+</script>
+<%- include('footer') %>

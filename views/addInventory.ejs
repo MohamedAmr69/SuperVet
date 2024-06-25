@@ -1,0 +1,84 @@
+<%-include("adminHeader") %>
+
+<div class="container mt-5">
+  <form
+    action="/addInventory"
+    method="POST"
+    enctype="multipart/form-data"
+    class="shadow border p-5"
+  >
+    <h2 class="text-center mb-4">Add Inventory</h2>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="productName" class="form-label">Product Name</label>
+        <input
+          type="text"
+          name="productName"
+          id="productName"
+          class="form-control"
+        />
+      </div>
+      <div class="col">
+        <label for="productPrice" class="form-label">Product Price</label>
+        <input
+          type="text"
+          name="productPrice"
+          id="productPrice"
+          class="form-control"
+        />
+      </div>
+      <div class="col">
+        <label for="category" class="form-label">Product Category</label>
+        <select name="category" class="form-select">
+          <option value="">Choose:</option>
+          <option value="food">Food</option>
+          <option value="supplements">Supplements</option>
+          <option value="grooming">Grooming</option>
+          <option value="litter">Litter</option>
+          <option value="accessories">Accessories</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input
+          type="number"
+          name="quantity"
+          id="quantity"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-8">
+        <label for="description" class="form-label">Description</label>
+        <input
+          type="text"
+          name="description"
+          id="description"
+          class="form-control"
+        />
+      </div>
+      <div class="col-2">
+        <label for="petType" class="form-label">Pet Type</label>
+        <select name="petType" class="form-select">
+          <option value="">Choose:</option>
+          <option value="cats">Cats</option>
+          <option value="dogs">Dogs</option>
+          <option value="rabbits">Rabbits</option>
+          <option value="fish">Fish</option>
+          <option value="birds">Birds</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <label for="image" class="form-label">Product Image</label>
+        <input type="file" name="image" id="image" class="form-control" />
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <button type="submit" class="btn btn-dark btn-block">Add</button>
+      </div>
+    </div>
+  </form>
+</div>
+<%-include('adminFooter')%>

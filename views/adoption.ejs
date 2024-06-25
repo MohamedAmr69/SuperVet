@@ -1,0 +1,110 @@
+<%-include('header')%>
+
+<div class="container">
+  <div class="container-fluid mt-3">
+    <div class="row justify-content-start align-items-center">
+      <div class="col-2">
+        <form action="/lostSearch" method="POST">
+          <input id="nameInput" type="text" class="form-control" placeholder="Name" name="name"
+            style="font-size: 1.6rem; font-weight: 400; padding: 1.6rem 3.2rem" />
+      </div>
+      <div class="col-2">
+        <select id="petTypeSelect" class="form-select" name="type"
+          style="font-size: 1.6rem; font-weight: 400; padding: 1.6rem 3.2rem">
+          <option value="">Pet Type</option>
+          <option value="cat">Cat</option>
+          <option value="dog">Dog</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <input id="locationInput" type="text" class="form-control" placeholder="Location" name="location"
+          style="font-size: 1.6rem; font-weight: 400; padding: 1.6rem 3.2rem" />
+      </div>
+      <div class="col-2">
+        <input id="dateInput" type="date" class="form-control" name="date"
+          style="font-size: 1.6rem; font-weight: 400; padding: 1.6rem 3.2rem" />
+      </div>
+      <div class="col-2">
+        <button id="searchButton" class="btn btn-outline-dark" type="submit"
+          style="font-size: 1.6rem; font-weight: 600; border-radius: 9px">
+          Search
+        </button>
+        </form>
+      </div>
+      <div class="col-2">
+        <a href="/adoptionPost" class="btn btn-outline-dark" style="
+          font-size: 1.6rem;
+          font-weight: 600;
+          border-radius: 9px;
+          padding: 1.6rem 3.2rem;
+        ">Add a post</a>
+      </div>
+    </div>
+    <hr />
+  </div>
+  <h1 class="heading-primary display-4 text-center mt-5">Pets for Adoption</h1>
+
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% for (let i=0; i < adoptions.length; i++) { %>
+      <div class="col">
+        <div class="lost-found-card shadow">
+          <div class="card-body">
+            <div class="lost-found-owner-info d-flex justify-content-between">
+              <div class="d-flex align-items-center">
+                <img
+                  src="/images/person.jpg"
+                  width="35px"
+                  height="35px"
+                  class="mr-1"
+                />
+                <span> <%= adoptions[i].postOwner %> </span>
+              </div>
+              <div class="lost-found-date text-muted">
+                <% const now=moment(); const
+                createdAt=moment(adoptions[i].createdAt); const
+                diffMinutes=now.diff(createdAt, 'minutes' ); const
+                diffHours=now.diff(createdAt, 'hours' ); const
+                diffDays=now.diff(createdAt, 'days' ); %> <% if (diffMinutes <
+                1) { %> A few seconds ago <% } else if (diffMinutes < 60) { %>
+                <%= diffMinutes %> minutes ago <% } else if (diffHours < 24) {
+                %> <%= diffHours %> hours ago <% } else if (diffDays <=3) { %>
+                <%= diffDays %> days ago <% } else { %> <%=
+                createdAt.format('YYYY-MM-DD HH:mm') %> <% } %>
+              </div>
+            </div>
+            <img
+              src="/images/inventory_images/<%= adoptions[i].image %>"
+              class="card-img-top mt-5 mb-5"
+              alt="product image"
+              style="height: 40re; object-fit: contain"
+            />
+            <hr />
+            <p>Name: <%= adoptions[i].petName %></p>
+            <p>
+              Birth Date: <%=
+              moment(adoptions[i].birthDate).format('YYYY-MM-DD') %>
+            </p>
+            <p>Pet type: <%= adoptions[i].petType %></p>
+            <form
+              action="/contactAdoption"
+              method="POST"
+              class="lost-found-form"
+            >
+              <input type="hidden" name="id" value="<%= adoptions[i]._id %>" />
+              <button
+                type="submit"
+                class="btn btn-outline-dark mt-3 btn-contact"
+              >
+                Contact Now
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%-include('footer')%>

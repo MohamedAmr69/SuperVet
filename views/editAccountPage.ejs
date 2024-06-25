@@ -1,0 +1,67 @@
+<%-include("adminHeader")%>
+<center>
+    <form action="/editAccount" method="POST">
+<div class="container border m-5">
+    <h1 class="m-4">Edit Account</h1>
+    <input type="hidden" name="id" value="<%=user._id%>">
+    <div class="row justify-content-center m-5">
+        <div class="col-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" value="<%=user.username%>">
+        </div>
+        <div class="col-3">
+            <label class="form-label">First Name</label>
+            <input type="text" name="firstName" class="form-control" value="<%=user.firstName%>">
+        </div>
+        <div class="col-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" name="lastName" class="form-control"  value="<%=user.lastName%>">
+        </div>
+    </div>
+    <div class="row justify-content-center m-5">
+        <div class="col-3">
+            <label class="form-label">E-Mail</label>
+            <input type="email" name="email" class="form-control"  value="<%=user.email%>">
+        </div>
+        <div class="col-3 align-content-center">
+            <label class="form-label">New Password</label>
+            <input type="password" name="plainTextPassword" class="form-control">
+        </div>
+        <div class="col-3 align-content-center">
+            <label class="form-label">Confrim Password</label>
+            <input type="password" name="confirmPassword" class="form-control">
+        </div>
+    </div>
+    <div class="row justify-content-center m-5">
+        <div class="col-3"> 
+            <label class="form-label">Address</label>
+            <input type="text" name="address" class="form-control"  value="<%=user.address%>">
+        </div>
+        
+        <div class="col-3"> 
+            <label class="form-label">Phone Number</label>
+            <input type="text" name="phoneNumber" class="form-control"  value="<%=user.phoneNumber%>">
+        </div>
+
+        <div class="col-3">
+            <label class="form-label">Role</label>
+            <select name="role" class="form-select">
+                <%if (user.role === 'doctor') {%>
+                <option value="doctor">doctor</option>
+                <option value="driver">driver</option>
+                <%} else if (user.role === 'driver') {%>
+                <option value="driver">driver</option>
+                    <option value="doctor">doctor</option>
+                    <%}%>
+            </select>
+        </div>
+    </div>
+    <div class="row justify-content-center m-5">
+        <div class="col-3">
+            <button type="submit" class="btn btn-outline-dark">Edit</button>
+        </div>
+    </div>
+</div>
+</form>
+</center>
+<%-include("adminFooter")%>

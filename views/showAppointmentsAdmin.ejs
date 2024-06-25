@@ -1,0 +1,65 @@
+<%- include('adminHeader') %>
+<div class="container">
+  <h1 class="heading-primary display-4 text-center mt-5">Appointments</h1>
+  <% if (appointments.length > 0) { %> <% appointments.forEach(appointment => {
+  %>
+  <div class="appointment-card mb-5">
+    <div class="appointment-header text-white py-3 px-4">
+      <div class="row justify-content-between">
+        <div class="col-3">
+          <h2 class="appointment-title">Appointment Details</h2>
+        </div>
+        <div class="col-1 align-content-center">
+          <form action="/deleteAppointment" method="POST">
+            <input type="hidden" name="id" value="<%=appointment._id%>" />
+            <button
+              type="submit"
+              style="background-color: transparent; border: none"
+            >
+              <i class="bi bi-archive-fill text-light"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="appointment-body p-4">
+      <p class="appointment-info">
+        <strong>Date:</strong>
+        <span class="date"
+          ><%= new Date(appointment.date).toLocaleDateString() %></span
+        ><br />
+        <strong>Time:</strong>
+        <span class="time"
+          ><%= appointment.time %> <% if (parseInt(appointment.time) < 12) { %>
+          AM <% } else { %> PM <% } %></span
+        ><br />
+        <strong>Veterinarian:</strong>
+        <span class="veterinarian"><%= appointment.veterinarian %></span>
+      </p>
+      <hr class="divider" />
+      <p class="appointment-info">
+        <strong>Pet Details:</strong><br />
+        <strong>Name:</strong>
+        <span class="pet-name"><%= appointment.petName %></span><br />
+        <strong>Type:</strong>
+        <span class="pet-type"><%= appointment.petType %></span><br />
+        <strong>Age:</strong>
+        <span class="pet-age"><%= appointment.petAge %></span>
+      </p>
+      <hr class="divider" />
+      <p class="appointment-info">
+        <strong>Reason:</strong>
+        <span class="reason"><%= appointment.reason %></span>
+      </p>
+      <hr class="divider" />
+      <p class="appointment-info">
+        <strong>Amount:</strong>
+        <span class="Amount"><%= appointment.amount%></span>
+      </p>
+    </div>
+  </div>
+  <% }) %> <% } else { %>
+  <p class="text-center">No appointments found.</p>
+  <% } %>
+</div>
+<%- include('adminFooter') %>

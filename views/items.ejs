@@ -1,0 +1,91 @@
+<%-include('header')%>
+<center>
+    <div class="container border shadow-lg p-5 mt-5 mb-5">
+        <% if (errorMessages) { %>
+            <% for (let message of errorMessages) { %>
+                <div class="alert alert-danger" role="alert">
+                    <h5><%= message %></h5>
+                </div>
+            <% } %>
+        <% } %>
+        <% if (successMessages) { %>
+            <% for (let message of successMessages) { %>
+                <div class="alert alert-success" role="alert">
+                    <h5><%= message %></h5>
+                </div>
+            <% } %>
+        <% } %>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <form action="/transaction" method="POST">
+                    <img src="/images/inventory_images/<%= item['image'] %>" class="img-fluid rounded" alt="Product Image">
+            </div>
+            <div class="col-md-9">
+                <div class="row mb-4">
+                    <div class="col-2 fw-bold">Product Name:</div>
+                    <div class="col-10">
+                        <%= item['productName'] %>
+                        <input type="hidden" name="productId" value="<%= item._id %>">
+                        <input type="hidden" name="productName" value="<%= item.productName %>">
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-2 fw-bold">Description:</div>
+                    <div class="col-10">
+                        <%= item['description'] %>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-2 fw-bold">Product Price:</div>
+                    <div class="col-10">
+                        <%= item['productPrice'] %>
+                        <input type="hidden" name="productPrice" value="<%= item['productPrice'] %>">
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-2 fw-bold">Category:</div>
+                    <div class="col-10">
+                        <%= item['category'] %>
+                        <input type="hidden" name="category" value="<%= item['category'] %>">
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-2 fw-bold">Pet Type:</div>
+                    <div class="col-10">
+                        <%= item['petType'] %>
+                        <input type="hidden" name="petType" value="<%= item['petType'] %>">
+                    </div>
+                </div>
+                <div class="row mb-4 align-items-center">
+                    <div class="col-2 fw-bold">Quantity:</div>
+                    <div class="col-10">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-outline-secondary" id="minus"><i class="bi bi-dash-square"></i></button>
+                            <input type="number" name="qty" id="qty" value="1" class="form-control text-center">
+                            <button type="button" class="btn btn-outline-secondary" id="plus"><i class="bi bi-plus-square"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <input type="hidden" name="stock" id="stock" value="<%= item['quantity'] %>">
+                    <div class="col-2 fw-bold">
+                        <div id="availability" class="text-success">Available</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <button type="submit" class="btn btn-info w-100">Buy</button>
+                    </div>
+                    </form>
+                    <form id="addToCartForm" action="/addToCart" method="POST" class="col-md-6">
+                        <input type="hidden" name="productId" value="<%= item._id %>">
+                        <input type="hidden" name="productPrice" value="<%= item['productPrice'] %>">
+                        <input type="hidden" name="qty" id="cartQty" value="1">
+                        <button type="submit" class="btn btn-secondary w-100">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
+<%-include('footer')%>

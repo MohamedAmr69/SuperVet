@@ -1,0 +1,44 @@
+<%-include('header')%>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <h1 class="heading-primary text-center">Contact</h1>
+    <div class="col-md-6">
+      <h3 class="heading-terinary">Contact => <%= adoption.postOwner %></h3>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title subheading">Details:</h5>
+          <p class="card-text">
+            <strong class="subheading mb-1">Pet Name:</strong> <%=
+            adoption.petName %>
+          </p>
+          <p class="card-text">
+            <strong class="subheading mb-1">Birth Date:</strong> <%=
+            moment(adoption.birthDate).format('YYYY-MM-DD') %>
+          </p>
+          <p class="card-text">
+            <strong class="subheading mb-1">Contact Email:</strong> <%=
+            adoption.contactEmail %>
+          </p>
+          <p class="card-text">
+            <strong class="subheading mb-1">Contact Number: </strong><%=
+            adoption.contactNumber %>
+          </p>
+          <p class="card-text">
+            <strong class="subheading mb-1">Comment: </strong><%=
+            adoption.comment %>
+          </p>
+          <% if (adoption.image) { %>
+          <img
+            src="/images/inventory_images/<%= adoption.image %>"
+            alt="Pet Image"
+            class="img-fluid mt-3"
+          />
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%-include('footer')%>
